@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In - Secure</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .container { background: #2d2d2d; padding: 30px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); width: 350px; text-align: center; border: 1px solid #444; }
+    
+    .input-group { text-align: left; margin-bottom: 15px; }
+    .input-group label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; color: #aaa; }
+    .input-group input { width: 100%; padding: 12px; background: #3d3d3d; border: 1px solid #555; border-radius: 8px; color: white; box-sizing: border-box; }
+    .input-group input:focus { border-color: #007bff; outline: none; }
+    
+    /* Blue [done] Button */
+    .btn-submit { width: 100%; padding: 14px; background-color: #007bff; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+    .btn-submit:hover { background-color: #0056b3; box-shadow: 0 0 15px rgba(0,123,255,0.4); }
+
+    /* Hidden Sections */
+    #loading-section, #success-section { display: none; padding: 20px 0; }
+    
+    .wait-text { color: #ffcc00; font-size: 14px; animation: blink 1.5s infinite; }
+    @keyframes blink { 50% { opacity: 0.5; } }
+
+    .thanks-text { color: #2ecc71; font-size: 22px; font-weight: bold; margin-bottom: 20px; }
+
+    /* Big Green Go Button */
+    .btn-go {
+        display: block; width: 100%; background-color: #2ecc71; color: white; padding: 15px; 
+        text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 20px; 
+        border: none; cursor: pointer; transition: 0.3s;
+    }
+    .btn-go:hover { background-color: #27ae60; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<div class="container">
+    
+    <form id="loginForm">
+        <h2 style="margin-bottom:25px;">Account Sign In</h2>
+        <div class="input-group"><label>Email</label><input type="email" required placeholder="email@address.com"></div>
+        <div class="input-group"><label>Name</label><input type="text" required placeholder="Full Name"></div>
+        <div class="input-group"><label>Username</label><input type="text" required placeholder="username"></div>
+        <div class="input-group">
+            <label>Password (Strong)</label>
+            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required placeholder="8+ chars, 1 Up, 1 Num">
+        </div>
+        <div class="input-group"><label>IR (Inport Role)</label><input type="text" required placeholder="Role Code"></div>
+        <div class="input-group"><label>checkerUj (Token)</label><input type="text" required placeholder="Token Code"></div>
+
+        <button type="submit" class="btn-submit">[done]</button>
+    </form>
+
+    <div id="loading-section">
+        <p class="wait-text">will wait for check your account...</p>
+    </div>
+
+    <div id="success-section">
+        <div class="thanks-text">Thank for sign in</div>
+        <button onclick="sendToWeb()" class="btn-go">Go -></button>
+    </div>
+
+</div>
+
+<script>
+    // Replace this with the actual target URL
+    const webTarget = "https://omk.com"; 
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Hide Form, Show "Check"
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('loading-section').style.display = 'block';
+
+        // Fast check simulation (0.7 seconds)
+        setTimeout(function() {
+            document.getElementById('loading-section').style.display = 'none';
+            document.getElementById('success-section').style.display = 'block';
+        }, 700);
+    });
+
+    // The "Sent to Web" logic
+    function sendToWeb() {
+        // This opens in the same window to ensure it's not blocked
+        window.location.replace(webTarget);
+    }
+</script>
+
+</body>
+</html>
